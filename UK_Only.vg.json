@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega/v3.0.json",
   "width": 720,
   "height": 720,
-  "padding": 5,
+  "padding": {"top": 25, "left": 0, "right": 0, "bottom": 0},
   "autosize": "none",
   "signals": [
     {
@@ -42,6 +42,14 @@
       "value": 8
     },
     {
+      "name": "projLead",
+      "value": "#1DACE8"
+    },
+    {
+      "name": "projPartic",
+      "value": "#F24D29"
+    },
+    {
       "name": "active",
       "value": null,
       "on": [
@@ -54,7 +62,21 @@
           "update": "null"
         }
       ]
-    }
+    },
+    {
+      "name": "hover",
+      "value": null,
+      "on": [
+        {"events": "text:mouseover", "update":"datum"},
+        {"events": "text:mouseout", "update": "null"}
+      ]
+    },
+      {
+        "name": "title",
+        
+        "value": "U.K 5G Projects",
+        "update": "if(hover, if(hover.Funding, hover.name + ' ( £' + hover.Funding + ')', hover.name), 'U.K 5G Projects')"
+      }
   ],
   "data": [
     {
@@ -104,6 +126,11 @@
           "type": "formula",
           "expr": "originY + radius * datum.beta * sin(PI * datum.angle / 180)",
           "as": "y"
+        },
+        {
+          "type": "formula",
+          "expr": "if(datum.Funding, (format(datum.Funding,'(,r')), null)",
+          "as": "Funding"
         }
       ]
     },
@@ -142,6 +169,26 @@
           "expr": "datum.source === active || datum.target === active"
         }
       ]
+    },
+    {
+      "name": "selectedSource",
+      "source": "selected",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.source === active"
+        }
+      ]
+    },
+    {
+      "name": "selectedTarget",
+      "source": "selected",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.target === active"
+        }
+      ]
     }
   ],
   "scales": [],
@@ -177,10 +224,53 @@
           "fontSize": {
             "signal": "textSize"
           },
+          "fontWeight": [
+            {
+              "test": "indata('selected', 'source', datum.id)",
+              "value": "bold"
+            },
+            {
+              "test": "indata('selected', 'target', datum.id)",
+              "value": "bold"
+            },
+            {
+              "value": null
+            }
+          ],
           "fill": [
+            {
+              "test": "datum.id === active",
+              "value": "black"
+            },
+            {
+              "test": "indata('selectedTarget', 'source', datum.id)",
+              "signal": "projPartic"
+            },
+            {
+              "test": "indata('selectedSource', 'target', datum.id)",
+              "signal": "projLead"
+            },
             {
               "value": "black"
             }
+          ]
+        }
+      }
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "encode": {
+        "enter": {
+          "x": {"signal": "width", "offset": -5},
+          "y": {"value": 0},
+          "fill": {"value": "black"},
+          "fontSize": {"value": 20},
+          "align": {"value": "right"}
+        },
+        "update": {
+          "text": [
+            {"signal": "title"}
           ]
         }
       }
@@ -207,13 +297,26 @@
                 "value": "bundle"
               },
               "strokeWidth": {
-                "value": 1.5
-              }
+                "value": 1.25
+              },
+              "strokeOpacity": [
+                {
+                  "value": 0.2
+                }
+              ]
             },
             "update": {
               "stroke": [
                 {
-                  "value": "steelblue"
+                  "test": "parent.source === active",
+                  "signal": "projLead"
+                },
+                {
+                  "test": "parent.target === active",
+                  "signal": "projPartic"
+                },
+                {
+                  "value": "#C4CFD0"
                 }
               ],
               "strokeOpacity": [
@@ -222,7 +325,7 @@
                   "value": 1
                 },
                 {
-                  "value": 0.2
+                  "value": 0.3
                 }
               ],
               "tension": {
@@ -235,6 +338,47 @@
                 "field": "y"
               }
             }
+          }
+        }
+      ],
+      "scales": [
+        {
+          "name": "color",
+          "type": "ordinal",
+          "domain": [
+            "is Project Leader",
+            "is Project Collaborator"
+          ],
+          "range": [
+            {
+              "signal": "projLead"
+            },
+            {
+              "signal": "projPartic"
+            }
+          ]
+        }
+      ],
+      "legends": [
+        {
+          "stroke": "color",
+          "orient": "right",
+          "title": "Project Relationships",
+          "encode": {
+            "symbols": {
+              "enter": {
+                "shape": {
+                  "value": "M-0.5,0H1"
+                }
+              }
+            },
+              "title": {
+                "update": {
+                  "fontSize": {"value": 14},
+                  "fontWeiht": {"value": "normal"}
+                }
+              }
+            
           }
         }
       ]
