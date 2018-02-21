@@ -2,7 +2,12 @@
   "$schema": "https://vega.github.io/schema/vega/v3.0.json",
   "width": 720,
   "height": 720,
-  "padding": {"top": 25, "left": 0, "right": 0, "bottom": 0},
+  "padding": {
+    "top": 25,
+    "left": 0,
+    "right": 0,
+    "bottom": 0
+  },
   "autosize": "none",
   "signals": [
     {
@@ -22,11 +27,8 @@
       "value": 360
     },
     {
-      "name": "layout", "value": "cluster"
-    },
-    {
-      "name": "data_table", "value": "Name",
-      "bind": {"input": "radio", "options": ["Name", "Funding"]}
+      "name": "layout",
+      "value": "cluster"
     },
     {
       "name": "originX",
@@ -70,45 +72,38 @@
       "name": "hover",
       "value": null,
       "on": [
-        {"events": "text:mouseover", "update":"datum"},
-        {"events": "text:mouseout", "update": "null"}
+        {
+          "events": "text:mouseover",
+          "update": "datum"
+        },
+        {
+          "events": "text:mouseout",
+          "update": "null"
+        }
       ]
     },
-      {
-        "name": "title",
-        
-        "value": "U.K 5G Projects",
-        "update": "if(hover, if(hover.Funding, hover.name + ' ( £' + hover.Funding + ')', hover.name), 'U.K 5G Projects')"
-      }
+    {
+      "name": "title",
+      "value": "U.K 5G Projects",
+      "update": "if(hover, if(hover.Funding, hover.name + ' ( £' + hover.Funding + ')', hover.name), 'U.K 5G Projects')"
+    }
   ],
   "data": [
     {
-      "name": "sorted_Name",
-      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/nodes.json",
-      "transform": [{
-        "type": "collect",
-        "sort": {
-          "field": "name"
-          }
-    }]
-    },
-     {
-      "name": "sorted_Funding",
-      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/nodes.json",
-      "transform": [{
-        "type": "collect",
-        "sort": {
-          "field": "Funding"
-          }
-    }]
-    },
-    {
       "name": "inputData",
-      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/nodes.json"
+      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/nodes.json",
+      "transform": [
+        {
+          "type": "collect",
+          "sort": {
+            "field": "name"
+          }
+        }
+      ]
     },
     {
       "name": "tree",
-      "source":  "inputData",
+      "source": "inputData",
       "transform": [
         {
           "type": "nest",
@@ -221,9 +216,28 @@
           "expr": "datum.target === active"
         }
       ]
+    },
+    {
+      "name": "hovered",
+      "source": "leaves",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.id == active"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.x > 450 ? datum.x - 250: datum.x + 10",
+          "as": "x"
+        },
+        {
+        "type": "formula",
+        "expr": "datum.y > 400 ? datum.y - 20 : datum.y + 20",
+        "as": "y"
+        }
+      ]
     }
   ],
-  "scales": [],
   "projections": [],
   "marks": [
     {
@@ -285,24 +299,6 @@
             {
               "value": "black"
             }
-          ]
-        }
-      }
-    },
-    {
-      "type": "text",
-      "interactive": false,
-      "encode": {
-        "enter": {
-          "x": {"signal": "width", "offset": -5},
-          "y": {"value": 0},
-          "fill": {"value": "black"},
-          "fontSize": {"value": 20},
-          "align": {"value": "right"}
-        },
-        "update": {
-          "text": [
-            {"signal": "title"}
           ]
         }
       }
@@ -372,7 +368,162 @@
             }
           }
         }
+      ]
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "width",
+            "offset": -5
+          },
+          "y": {
+            "value": 0
+          },
+          "fill": {
+            "value": "black"
+          },
+          "fontSize": {
+            "value": 20
+          },
+          "align": {
+            "value": "right"
+          }
+        },
+        "update": {
+          "text": [
+            {
+              "signal": "title"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "group",
+      "from": {
+        "data": "hovered"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          },
+          "width": {
+            "value": 200
+          },
+          "height": {
+            "value": 80
+          },
+          "fill": {
+            "value": "#ffa"
+          },
+          "fillOpacity": {
+            "value": 0.85
+          },
+          "stroke": {
+            "value": "#aaa"
+          },
+          "strokeWidth": {
+            "value": 0.5
+          },
+          "zindex": {
+            "value": 1
+          }
+        }
+      },
+      "signals": [
+        {
+          "name": "tooltipName",
+          "value": "",
+          "update": "hover ? 'Name: ' + hover.name : ''"
+        },
+        {
+          "name": "tooltipProjCount",
+          "value": "",
+          "update": "if(hover, if(hover.numProjects,'Leads ' + hover.numProjects + ' projects', 'Does not lead any projects'), '')"
+        },
+        {
+          "name": "tooltipFunding",
+          "value": "",
+          "update": "if(hover, if(hover.Funding,'Total Funding Received: £' + hover.Funding, 'No Funding Data'), '')"
+        }
       ],
+      "marks": [
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "text": {
+                "signal": "tooltipName"
+              },
+              "x": {
+                "value": 10
+              },
+              "y": {
+                "value": 20
+              },
+              "fill": {
+                "value": "black"
+              },
+              "align": {
+                "value": "left"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "text": {
+                "signal": "tooltipProjCount"
+              },
+              "x": {
+                "value": 10
+              },
+              "y": {
+                "value": 40
+              },
+              "fill": {
+                "value": "black"
+              },
+              "align": {
+                "value": "left"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "text": {
+                "signal": "tooltipFunding"
+              },
+              "x": {
+                "value": 10
+              },
+              "y": {
+                "value": 60
+              },
+              "fill": {
+                "value": "black"
+              },
+              "align": {
+                "value": "left"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
       "scales": [
         {
           "name": "color",
@@ -394,7 +545,7 @@
       "legends": [
         {
           "stroke": "color",
-          "orient": "right",
+          "orient": "top-left",
           "title": "Project Relationships",
           "encode": {
             "symbols": {
@@ -404,16 +555,17 @@
                 }
               }
             },
-              "title": {
-                "update": {
-                  "fontSize": {"value": 14},
-                  "fontWeiht": {"value": "normal"}
+            "title": {
+              "update": {
+                "fontSize": {
+                  "value": 14
+                },
+                "fontWeiht": {
+                  "value": "normal"
                 }
               }
-            
+            }
           }
         }
       ]
-    }
-  ]
 }
