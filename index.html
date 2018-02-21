@@ -14,29 +14,6 @@
         .hover()             // enable hover encode set processing
         .run();
     }
-    
-   function signalTableHandler(signalName, signalValue) {
-      var replaceData;
-      switch(signalValue){
-        case "Name":
-          replaceData=view.data("sorted_Name").slice();
-          break;
-        case "Funding":
-          replaceData = view.data("sorted_Funding").slice();
-          break;
-        default:
-          replaceData=view.data("inputData").slice();
-      }
-      
-      view.remove("inputData", function(d) {return true; })
-        .runAfter(function(view){
-          view.insert('inputData', replaceData)
-                        .run();
-                      });
-      }
-                  
-    view.addSignalListener("data_table", signalTableHandler);
-    signalTableHandler("data_table", view.signal("data_table"));
   </script>
 </head>
 <body>
