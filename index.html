@@ -15,29 +15,28 @@
         .run();
     }
     
-    function signalTableHandler(signalName, signalValue) {
-      var replaceData:
+   function signalTableHandler(signalName, signalValue) {
+      var replaceData;
       switch(signalValue){
         case "Name":
-          replaceData=vegaView.data("sorted_Name").slice();
+          replaceData=view.data("sorted_Name").slice();
           break;
         case "Funding":
-          replaceData = vegaView.data("sorted_Funding").slice();
+          replaceData = view.data("sorted_Funding").slice();
           break;
         default:
-          replaceData=vegaView.data("inputData").slice();
+          replaceData=view.data("inputData").slice();
       }
       
-      vegaView.remove('table', function(d) {return true; })
+      view.remove('table', function(d) {return true; })
         .runAfter(function(view){
           view.insert('inputData', replaceData)
                         .run();
                       });
       }
                   
-     vegaView.addSignalListener("data_table", signalTableHandler);
-     signalTableHandler("data_table", vegaView.signal("data_table"));
-       
+     view.addSignalListener("data_table", signalTableHandler);
+     signalTableHandler("data_table", view.signal("data_table"));
   </script>
 </head>
 <body>
