@@ -22,8 +22,11 @@
       "value": 360
     },
     {
-      "name": "layout",
-      "value": "cluster"
+      "name": "layout", "value": "cluster"
+    },
+    {
+      "name": "data_table", "value": "Name",
+      "bind": {"input": "radio", "options": ["Name", "Funding"]}
     },
     {
       "name": "originX",
@@ -80,8 +83,32 @@
   ],
   "data": [
     {
-      "name": "tree",
+      "name": "sorted_Name",
       "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/nodes.json",
+      "transform": [{
+        "type": "collect",
+        "sort": {
+          "field": "name"
+          }
+    }]
+    },
+     {
+      "name": "sorted_Funding",
+      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/nodes.json",
+      "transform": [{
+        "type": "collect",
+        "sort": {
+          "field": "Funding"
+          }
+    }]
+    },
+    {
+      "name": "inputData",
+      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/nodes.json"
+    },
+    {
+      "name": "tree",
+      "source":  "inputData",
       "transform": [
         {
           "type": "nest",
@@ -90,6 +117,11 @@
             "instType"
           ],
           "generate": true
+        },
+        {
+          "type": "formula",
+          "expr": "datum.name",
+          "as": "name"
         },
         {
           "type": "tree",
