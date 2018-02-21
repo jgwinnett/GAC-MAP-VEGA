@@ -14,6 +14,30 @@
         .hover()             // enable hover encode set processing
         .run();
     }
+    
+    function signalTableHandler(signalName, signalValue) {
+      var replaceData:
+      switch(signalValue){
+        case "Name":
+          replaceData=vegaView.data("sorted_Name").slice();
+          break;
+        case "Funding":
+          replaceData = vegaView.data("sorted_Funding").slice();
+          break;
+        default:
+          replaceData=vegaView.data("inputData").slice();
+      }
+      
+      vegaView.remove('table', function(d) {return true; })
+        .runAfter(function(view){
+          view.insert('inputData, replaceData)
+                        .run();
+                      });
+      }
+                  
+     vegaView.addSignalListener("data_table", signalTableHandler);
+     signalTableHandler("data_table", vegaView.signal("data_table"));
+       
   </script>
 </head>
 <body>
