@@ -28,7 +28,7 @@
           replaceData=view.data("inputData").slice();
       }
       
-      view.remove('table', function(d) {return true; })
+      view.remove("data_table", function(d) {return true; })
         .runAfter(function(view){
           view.insert('inputData', replaceData)
                         .run();
