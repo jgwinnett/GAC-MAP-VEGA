@@ -28,15 +28,15 @@
           replaceData=view.data("inputData").slice();
       }
       
-      view.remove("data_table", function(d) {return true; })
+      view.remove("inputData", function(d) {return true; })
         .runAfter(function(view){
           view.insert('inputData', replaceData)
                         .run();
                       });
       }
                   
-     view.addSignalListener("data_table", signalTableHandler);
-     signalTableHandler("data_table", view.signal("data_table"));
+    view.addSignalListener("data_table", signalTableHandler);
+    signalTableHandler("data_table", view.signal("data_table"));
   </script>
 </head>
 <body>
