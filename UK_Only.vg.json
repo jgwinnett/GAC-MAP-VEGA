@@ -289,6 +289,10 @@
               "value": "black"
             },
             {
+              "test": "indata('selectedTarget', 'source', datum.id) && indata('selectedSource', 'target', datum.id)",
+              "value": "#FF69B4"
+            },
+            {
               "test": "indata('selectedTarget', 'source', datum.id)",
               "signal": "projPartic"
             },
@@ -335,6 +339,10 @@
             },
             "update": {
               "stroke": [
+                 {
+              "test": "indata('selected', 'source', parent.target) && indata('selected', 'target', parent.source)",
+              "value": "#FF69B4"
+                },
                 {
                   "test": "parent.source === active",
                   "signal": "projLead"
