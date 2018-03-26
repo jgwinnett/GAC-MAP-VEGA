@@ -1,10 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-  "width": 1500,
-  "height": 1500,
-  "padding": "auto"
+  "width": 720,
+  "height": 720,
+  "padding": {
+    "top": 25,
+    "left": 10,
+    "right": 10,
+    "bottom": 10
   },
-  "autosize": "pad",
+  "autosize": "none",
   "signals": [
     {
       "name": "tension",
@@ -40,7 +44,7 @@
     },
     {
       "name": "textSize",
-      "value": 16
+      "value": 8
     },
     {
       "name": "projLead",
