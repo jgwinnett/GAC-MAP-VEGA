@@ -4,9 +4,9 @@
   "height": 720,
   "padding": {
     "top": 25,
-    "left": 15,
-    "right": 10,
-    "bottom": 10
+    "left": 50,
+    "right": 50,
+    "bottom": 50
   },
   "autosize": "none",
   "signals": [
@@ -44,7 +44,7 @@
     },
     {
       "name": "textSize",
-      "value": 8
+      "value": 16
     },
     {
       "name": "projLead",
