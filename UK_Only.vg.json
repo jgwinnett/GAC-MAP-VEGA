@@ -6,7 +6,7 @@
   },
   "autosize": {
     "type": "pad"
-  }
+  },
   "signals": [
     {
       "name": "tension",
