@@ -44,7 +44,7 @@
     },
     {
       "name": "textSize",
-      "value": 24
+      "value": 20
     },
     {
       "name": "projLead",
@@ -329,11 +329,11 @@
                 "value": "bundle"
               },
               "strokeWidth": {
-                "value": 1.25
+                "value": 3.0
               },
               "strokeOpacity": [
                 {
-                  "value": 0.2
+                  "value": 0.6
                 }
               ]
             },
