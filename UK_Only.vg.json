@@ -91,7 +91,7 @@
   "data": [
     {
       "name": "inputData",
-      "url": "data/nodes.json",
+      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/nodes.json",
       "transform": [
         {
           "type": "collect",
@@ -177,7 +177,7 @@
     },
     {
       "name": "edges",
-      "url": "data/edges.json",
+      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/edges.json",
       "transform": [
         {
           "type": "formula",
