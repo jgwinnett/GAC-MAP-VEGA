@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-  "width": 720,
-  "height": 720,
+  "width": 1500,
+  "height": 1000,
   "padding": {
     "top": 25,
     "left": 0,
     "right": 0,
     "bottom": 0
   },
-  "autosize": "pad",
+  "autosize": "none",
   "signals": [
     {
       "name": "tension",
@@ -44,7 +44,7 @@
     },
     {
       "name": "textSize",
-      "value": 20
+      "value": 18
     },
     {
       "name": "projLead",
@@ -81,12 +81,17 @@
           "update": "null"
         }
       ]
+    },
+    {
+      "name": "title",
+      "value": "U.K 5G Projects",
+      "update": "if(hover, if(hover.Funding, hover.name + ' ( £' + hover.Funding + ')', hover.name), 'U.K 5G Projects')"
     }
   ],
   "data": [
     {
       "name": "inputData",
-      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/nodes.json",
+      "url": "data/nodes.json",
       "transform": [
         {
           "type": "collect",
@@ -172,7 +177,7 @@
     },
     {
       "name": "edges",
-      "url": "https://raw.githubusercontent.com/jgwinnett/GAC-MAP-VIZ/master/edges.json",
+      "url": "data/edges.json",
       "transform": [
         {
           "type": "formula",
@@ -324,11 +329,11 @@
                 "value": "bundle"
               },
               "strokeWidth": {
-                "value": 5.0
+                "value": 2.0
               },
               "strokeOpacity": [
                 {
-                  "value": 10.0
+                  "value": 1.0
                 }
               ]
             },
@@ -347,7 +352,7 @@
                   "signal": "projPartic"
                 },
                 {
-                  "value": "#C4CFD0"
+                  "value": "black"
                 }
               ],
               "strokeOpacity": [
@@ -356,7 +361,7 @@
                   "value": 1
                 },
                 {
-                  "value": 1.0
+                  "value": 0.3
                 }
               ],
               "tension": {
