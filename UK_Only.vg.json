@@ -8,7 +8,7 @@
     "right": 0,
     "bottom": 0
   },
-  "autosize": "none",
+  "autosize": "pad",
   "signals": [
     {
       "name": "tension",
