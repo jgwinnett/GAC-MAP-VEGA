@@ -4,7 +4,7 @@
   "height": 1500,
   "padding": "auto"
   },
-  "autosize": "none",
+  "autosize": "fit",
   "signals": [
     {
       "name": "tension",
