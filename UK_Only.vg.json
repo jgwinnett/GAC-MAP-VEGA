@@ -81,11 +81,6 @@
           "update": "null"
         }
       ]
-    },
-    {
-      "name": "title",
-      "value": "U.K 5G Projects",
-      "update": "if(hover, if(hover.Funding, hover.name + ' ( £' + hover.Funding + ')', hover.name), 'U.K 5G Projects')"
     }
   ],
   "data": [
@@ -329,11 +324,11 @@
                 "value": "bundle"
               },
               "strokeWidth": {
-                "value": 3.0
+                "value": 5.0
               },
               "strokeOpacity": [
                 {
-                  "value": 1.0
+                  "value": 10.0
                 }
               ]
             },
@@ -548,32 +543,6 @@
               "signal": "projPartic"
             }
           ]
-        }
-      ],
-      "legends": [
-        {
-          "stroke": "color",
-          "orient": "top-left",
-          "title": "Project Relationships",
-          "encode": {
-            "symbols": {
-              "enter": {
-                "shape": {
-                  "value": "M-0.5,0H1"
-                }
-              }
-            },
-            "title": {
-              "update": {
-                "fontSize": {
-                  "value": 14
-                },
-                "fontWeiht": {
-                  "value": "normal"
-                }
-              }
-            }
-          }
         }
       ]
 }
