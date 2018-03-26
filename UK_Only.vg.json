@@ -2,10 +2,9 @@
   "$schema": "https://vega.github.io/schema/vega/v3.0.json",
   "width": 1500,
   "height": 1500,
-  "padding": "auto",
-  "autosize": {
-    "type": "pad"
+  "padding": "auto"
   },
+  "autosize": "pad",
   "signals": [
     {
       "name": "tension",
