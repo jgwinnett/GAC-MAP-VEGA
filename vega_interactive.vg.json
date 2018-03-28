@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v3.0.json",
   "width": 1500,
-  "height": 1000,
+  "height": 1500,
   "padding": {
     "top": 25,
-    "left": 0,
-    "right": 0,
-    "bottom": 0
+    "left": 10,
+    "right": 10,
+    "bottom": 10
   },
-  "autosize": "none",
+  "autosize": "fit",
   "signals": [
     {
       "name": "tension",
@@ -16,7 +16,7 @@
     },
     {
       "name": "radius",
-      "value": 280
+      "value": 350
     },
     {
       "name": "extent",
@@ -44,7 +44,7 @@
     },
     {
       "name": "textSize",
-      "value": 18
+      "value": 26
     },
     {
       "name": "projLead",
@@ -53,6 +53,10 @@
     {
       "name": "projPartic",
       "value": "#F24D29"
+    },
+    {
+      "name": "lead_and_partic",
+      "value": "purple"
     },
     {
       "name": "active",
@@ -290,7 +294,7 @@
             },
             {
               "test": "indata('selectedTarget', 'source', datum.id) && indata('selectedSource', 'target', datum.id)",
-              "value": "#FF69B4"
+              "signal": "lead_and_partic"
             },
             {
               "test": "indata('selectedTarget', 'source', datum.id)",
@@ -329,11 +333,11 @@
                 "value": "bundle"
               },
               "strokeWidth": {
-                "value": 2.0
+                "value": 2.5
               },
               "strokeOpacity": [
                 {
-                  "value": 1.0
+                  "value": 0.8
                 }
               ]
             },
@@ -341,7 +345,7 @@
               "stroke": [
                  {
               "test": "indata('selected', 'source', parent.target) && indata('selected', 'target', parent.source)",
-              "value": "#FF69B4"
+              "signal": "lead_and_partic"
                 },
                 {
                   "test": "parent.source === active",
@@ -352,7 +356,7 @@
                   "signal": "projPartic"
                 },
                 {
-                  "value": "black"
+                  "value": "#C4CFD0"
                 }
               ],
               "strokeOpacity": [
@@ -394,7 +398,7 @@
             "value": "black"
           },
           "fontSize": {
-            "value": 20
+            "value": 32
           },
           "align": {
             "value": "right"
@@ -538,7 +542,8 @@
           "type": "ordinal",
           "domain": [
             "is Project Leader",
-            "is Project Collaborator"
+            "is Project Collaborator",
+            "Leads and Collaborates"
           ],
           "range": [
             {
@@ -546,8 +551,37 @@
             },
             {
               "signal": "projPartic"
+            },
+            {
+              "signal": "lead_and_partic"
             }
           ]
+        }
+      ],
+      "legends": [
+        {
+          "stroke": "color",
+          "orient": "top-left",
+          "title": "Project Relationships",
+          "encode": {
+            "symbols": {
+              "enter": {
+                "shape": {
+                  "value": "M-0.5,0H1"
+                }
+              }
+            },
+            "title": {
+              "update": {
+                "fontSize": {
+                  "value": 18
+                },
+                "fontWeight": {
+                  "value": "normal"
+                }
+              }
+            }
+          }
         }
       ]
 }
