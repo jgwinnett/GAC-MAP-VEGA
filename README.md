@@ -2,7 +2,7 @@
 
 > NO LONGER MAINTAINED.
 
-> To view the visualisation goto [the github puages](https://jgwinnett.github.io/GAC-MAP-VEGA/)
+> To view the visualisation goto [the github pages](https://jgwinnett.github.io/GAC-MAP-VEGA/)
 
 Stochiastic Block Model visualization example using:
 
